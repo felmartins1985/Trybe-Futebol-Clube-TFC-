@@ -19,17 +19,17 @@ describe('Login', () => {
 
   // let chaiHttpResponse: Response;
 
-  before(async () => {
-    sinon
-      .stub(UserModel, "findOne")
-      .resolves(
-        oneUser as UserModel
-      );
-  });
+  // before(async () => {
+  //   sinon
+  //     .stub(UserModel, "findOne")
+  //     .resolves(
+  //       oneUser as UserModel
+  //     );
+  // });
 
-  after(()=>{
-    (UserModel.findOne as sinon.SinonStub).restore();
-  })
+  // after(()=>{
+  //   (UserModel.findOne as sinon.SinonStub).restore();
+  // })
 
   // it('...', async () => {
   //   chaiHttpResponse = await chai
