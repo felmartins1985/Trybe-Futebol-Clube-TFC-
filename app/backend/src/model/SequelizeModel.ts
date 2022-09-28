@@ -1,4 +1,4 @@
-import { ILogin } from '../interfaces/ILogin';
+// import { ILogin } from '../interfaces/ILogin';
 import UserModel from '../database/models/UserModel';
 import { IUser } from '../interfaces/IUser';
 
@@ -9,8 +9,8 @@ abstract class SequelizeModel {
   //   return this._model.create(creationAtributes);
   // }
 
-  public async findOne(user: ILogin): Promise<IUser | null > {
-    return this._model.findOne({ where: { email: user.email } });
+  public async findOne(email: string): Promise<IUser | null > {
+    return this._model.findOne({ where: { email } });
   }
 }
 

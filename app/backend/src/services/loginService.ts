@@ -7,7 +7,7 @@ export default class LoginService {
   constructor(private userModel = new UserModel()) {}
 
   public async login(user: ILogin) {
-    const foundUser = await this.userModel.findOne(user);
+    const foundUser = await this.userModel.findOne(user.email);
     if (!foundUser) {
       return { code: 401, message: 'Incorrect email or password' };
     }
@@ -18,4 +18,6 @@ export default class LoginService {
     const token = createToken(user.email);
     return { code: 200, data: token };
   }
+
+  public async findUser(email: string) { return this.userModel.findOne(email); }
 }

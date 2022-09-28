@@ -2,6 +2,7 @@ import * as express from 'express';
 import error from './middlewares/error';
 import LoginController from './controllers/loginController';
 import loginMiddleware from './middlewares/loginMiddleware';
+import auth from './middlewares/auth';
 
 class App {
   public app: express.Express;
@@ -14,6 +15,7 @@ class App {
     // Não remover essa rota
     this.app.get('/', (req, res) => res.json({ ok: true }));
     this.app.post('/login', loginMiddleware, loginController.create.bind(loginController));
+    this.app.get('/login/validate', auth, loginController.validateToken);
     this.app.use(error);
   }
 
