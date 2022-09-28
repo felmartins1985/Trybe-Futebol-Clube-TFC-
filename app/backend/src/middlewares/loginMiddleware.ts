@@ -7,11 +7,11 @@ export default (req: Request, res: Response, next: NextFunction) => {
   if (!(email.match(emailRegex))) {
     return next({
       code: 400,
-      message: 'O "email" deve ter o formato "email@email.com"',
+      message: 'All fields must be filled',
     });
   }
   if (!password || password.length <= 6) {
-    return next({ code: 400, message: '"password" is invalid' });
+    return next({ code: 400, message: 'All fields must be filled' });
   }
   next();
 };
