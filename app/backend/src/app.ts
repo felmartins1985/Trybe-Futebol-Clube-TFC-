@@ -2,6 +2,7 @@ import * as express from 'express';
 import error from './middlewares/error';
 import LoginController from './controllers/loginController';
 import TeamController from './controllers/teamController';
+import MatchController from './controllers/matchController';
 import loginMiddleware from './middlewares/loginMiddleware';
 import auth from './middlewares/auth';
 
@@ -12,6 +13,7 @@ class App {
     this.app = express();
     const loginController = new LoginController();
     const teamController = new TeamController();
+    const matchController = new MatchController();
     this.config();
 
     // Não remover essa rota
@@ -20,6 +22,7 @@ class App {
     this.app.get('/login/validate', auth, loginController.validateToken);
     this.app.get('/teams', teamController.getAllTeams.bind(teamController));
     this.app.get('/teams/:id', teamController.findTeam.bind(teamController));
+    this.app.get('/matches', matchController.getAllMatches.bind(matchController));
     this.app.use(error);
   }
 
