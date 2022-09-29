@@ -19,6 +19,7 @@ class App {
     this.app.post('/login', loginMiddleware, loginController.create.bind(loginController));
     this.app.get('/login/validate', auth, loginController.validateToken);
     this.app.get('/teams', teamController.getAllTeams.bind(teamController));
+    this.app.get('/teams/:id', teamController.findTeam.bind(teamController));
     this.app.use(error);
   }
 

@@ -12,4 +12,12 @@ export default class TeamService {
     }
     return { code: 200, data: teams };
   }
+
+  public async findTeam(id:number) {
+    const team = await this.teamModel.findTeam(id);
+    if (!team) {
+      return { code: 404, message: 'No team found' };
+    }
+    return { code: 200, data: team };
+  }
 }
