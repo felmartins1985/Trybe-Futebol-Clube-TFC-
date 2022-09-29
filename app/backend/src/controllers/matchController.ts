@@ -33,6 +33,17 @@ export default class MatchController {
     }
     return res.status(result.code).json({ message: result.data });
   }
+
+  public async patchMatchGoals(req: Request, res: Response) {
+    const { id } = req.params;
+    const { homeTeamGoals, awayTeamGoals } = req.body;
+    const result = await this.service
+      .patchMatchGoals(Number(id), homeTeamGoals, awayTeamGoals);
+    if (result.message) {
+      return res.status(result.code).json({ message: result.message });
+    }
+    return res.status(result.code).json(result.data);
+  }
   // public async findTeam(req: Request, res: Response) {
   //   const { id } = req.params;
   //   const team = await this.service.findTeam(Number(id));

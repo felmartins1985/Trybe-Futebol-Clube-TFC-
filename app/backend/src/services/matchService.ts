@@ -36,6 +36,14 @@ export default class TeamService {
     }
     return { code: 200, data: 'Finished' };
   }
+
+  public async patchMatchGoals(id: number, teamHome: number, teamAway: number) {
+    const patchGoals = await this.matchesModel.patchMatchGoals(id, teamHome, teamAway);
+    if (!patchGoals) {
+      return { code: 404, message: 'Its not possible to update' };
+    }
+    return { code: 200, data: patchGoals };
+  }
   // public async findTeam(id:number) {
   //   const team = await this.teamModel.findTeam(id);
   //   if (!team) {

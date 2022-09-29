@@ -24,6 +24,7 @@ class App {
     this.app.get('/teams/:id', teamController.findTeam.bind(teamController));
     this.app.get('/matches', matchController.getAllMatches.bind(matchController));
     this.app.post('/matches', auth, matchController.postMatch.bind(matchController));
+    this.app.patch('/matches/:id', matchController.patchMatchGoals.bind(matchController));
     this.app.patch('/matches/:id/finish', matchController.patchMatch.bind(matchController));
     this.app.use(error);
   }

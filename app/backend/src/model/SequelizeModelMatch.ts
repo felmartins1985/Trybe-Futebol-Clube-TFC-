@@ -33,6 +33,11 @@ abstract class SequelizeModelMatch {
     const match = await this._model.update({ inProgress: false }, { where: { id } });
     return match;
   }
+
+  public async patchMatchGoals(id:number, homeTeamGoals: number, awayTeamGoals: number) {
+    const match = await this._model.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
+    return match;
+  }
 }
 
 export default SequelizeModelMatch;
