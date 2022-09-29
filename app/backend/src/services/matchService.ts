@@ -16,6 +16,10 @@ export default class TeamService {
 
   public async postMatch(body:IMatch) {
     const match = await this.matchesModel.postMatch(body);
+    const { homeTeam, awayTeam } = match;
+    if (homeTeam === awayTeam) {
+      return { code: 401, message: 'It is not possible to create a match with two equal teams' };
+    }
     if (!match) {
       return { code: 404, message: 'No match found' };
     }
