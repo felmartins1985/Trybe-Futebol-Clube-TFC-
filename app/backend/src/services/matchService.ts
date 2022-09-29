@@ -1,5 +1,6 @@
 // import ITeam from '../interfaces/ITeam';
 
+import IMatch from '../interfaces/IMatch';
 import MatchModel from '../model/MatchModel';
 
 export default class TeamService {
@@ -13,6 +14,13 @@ export default class TeamService {
     return { code: 200, data: matches };
   }
 
+  public async postMatch(body:IMatch) {
+    const match = await this.matchesModel.postMatch(body);
+    if (!match) {
+      return { code: 404, message: 'No match found' };
+    }
+    return { code: 201, data: match };
+  }
   // public async findTeam(id:number) {
   //   const team = await this.teamModel.findTeam(id);
   //   if (!team) {

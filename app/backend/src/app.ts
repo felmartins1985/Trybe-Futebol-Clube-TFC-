@@ -23,6 +23,7 @@ class App {
     this.app.get('/teams', teamController.getAllTeams.bind(teamController));
     this.app.get('/teams/:id', teamController.findTeam.bind(teamController));
     this.app.get('/matches', matchController.getAllMatches.bind(matchController));
+    this.app.post('/matches', auth, matchController.postMatch.bind(matchController));
     this.app.use(error);
   }
 

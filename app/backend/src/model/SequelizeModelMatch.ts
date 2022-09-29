@@ -1,4 +1,5 @@
 // import { ILogin } from '../interfaces/ILogin';
+import IMatch from '../interfaces/IMatch';
 import MatchModel from '../database/models/MatchModel';
 import TeamModel from '../database/models/TeamModel';
 
@@ -12,10 +13,21 @@ abstract class SequelizeModelMatch {
       { model: TeamModel, as: 'teamAway' },
     ] });
   }
-  // { model: User, as: ‘user’, attributes: { exclude: [‘password’] } },
-  // public async findTeam(id:number): Promise<ITeam | null> {
-  //   return this._model.findByPk(id);
-  // }
+
+  public async postMatch(body: IMatch) {
+    const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals } = body;
+    const newMatch = {
+      homeTeam,
+      awayTeam,
+      homeTeamGoals,
+      awayTeamGoals,
+      inProgress: true,
+    };
+    const findId = await this._model.create(newMatch);
+    const { id } = findId;
+    const matchComplete = { id, ...newMatch };
+    return matchComplete;
+  }
 }
 
 export default SequelizeModelMatch;

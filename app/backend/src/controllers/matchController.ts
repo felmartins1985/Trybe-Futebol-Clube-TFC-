@@ -17,6 +17,13 @@ export default class MatchController {
     return res.status(team.code).json(team.data);
   }
 
+  public async postMatch(req: Request, res: Response) {
+    const result = await this.service.postMatch(req.body);
+    if (result.message) {
+      return res.status(result.code).json({ message: result.message });
+    }
+    return res.status(result.code).json(result.data);
+  }
   // public async findTeam(req: Request, res: Response) {
   //   const { id } = req.params;
   //   const team = await this.service.findTeam(Number(id));
