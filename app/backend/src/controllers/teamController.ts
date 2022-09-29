@@ -11,6 +11,9 @@ export default class TeamController {
 
   public async getAllTeams(req: Request, res: Response) {
     const team = await this.service.getAllTeams();
+    if (team.message) {
+      return res.status(team.code).json({ message: team.message });
+    }
     return res.status(team.code).json(team.data);
   }
 
