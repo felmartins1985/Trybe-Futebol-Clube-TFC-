@@ -1,9 +1,10 @@
 // import ITeam from '../interfaces/ITeam';
-
+import TeamModel from '../model/TeamModel';
 import IMatch from '../interfaces/IMatch';
 import MatchModel from '../model/MatchModel';
 
 export default class TeamService {
+  private sequelizeTeam = new TeamModel();
   constructor(private matchesModel = new MatchModel()) {}
 
   public async getAllMatches() {
@@ -15,14 +16,16 @@ export default class TeamService {
   }
 
   public async postMatch(body:IMatch) {
-    const match = await this.matchesModel.postMatch(body);
-    const { homeTeam, awayTeam } = match;
+    const { homeTeam, awayTeam } = body;
+    const home = await this.sequelizeTeam.findTeam(homeTeam);
+    const away = await this.sequelizeTeam.findTeam(awayTeam);
+    if (!home || !away) {
+      return { code: 404, message: 'There is no team with such id!' };
+    }
     if (homeTeam === awayTeam) {
       return { code: 401, message: 'It is not possible to create a match with two equal teams' };
     }
-    if (!match) {
-      return { code: 404, message: 'No match found' };
-    }
+    const match = await this.matchesModel.postMatch(body);
     return { code: 201, data: match };
   }
 

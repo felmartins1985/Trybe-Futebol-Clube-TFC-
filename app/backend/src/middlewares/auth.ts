@@ -21,11 +21,11 @@ export default async (req: NewRequest, _res: Response, next: NextFunction) => {
     const service = new LoginService();
     const user = await service.findUser(validateToken.email) as IUser;
     if (!user) {
-      return next({ code: 401, message: 'Invalid token' });
+      return next({ code: 401, message: 'Token must be a valid token' });
     }
     req.userRole = user.role;
     next();
   } catch (err) {
-    next({ code: 401, message: 'Invalid token' });
+    next({ code: 401, message: 'Token must be a valid token' });
   }
 };
