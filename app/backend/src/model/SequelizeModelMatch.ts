@@ -28,6 +28,11 @@ abstract class SequelizeModelMatch {
     const matchComplete = { id, ...newMatch };
     return matchComplete;
   }
+
+  public async patchMatch(id: number) {
+    const match = await this._model.update({ inProgress: false }, { where: { id } });
+    return match;
+  }
 }
 
 export default SequelizeModelMatch;

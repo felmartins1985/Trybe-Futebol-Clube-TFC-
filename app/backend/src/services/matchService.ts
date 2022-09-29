@@ -21,6 +21,14 @@ export default class TeamService {
     }
     return { code: 201, data: match };
   }
+
+  public async patchMatch(id:number) {
+    const body = await this.matchesModel.patchMatch(id);
+    if (!body) {
+      return { code: 404, message: 'No match found' };
+    }
+    return { code: 200, data: 'Finished' };
+  }
   // public async findTeam(id:number) {
   //   const team = await this.teamModel.findTeam(id);
   //   if (!team) {
