@@ -1,6 +1,7 @@
 import * as express from 'express';
 import error from './middlewares/error';
 import LoginController from './controllers/loginController';
+import TeamController from './controllers/teamController';
 import loginMiddleware from './middlewares/loginMiddleware';
 import auth from './middlewares/auth';
 
@@ -10,12 +11,14 @@ class App {
   constructor() {
     this.app = express();
     const loginController = new LoginController();
+    const teamController = new TeamController();
     this.config();
 
     // Não remover essa rota
     this.app.get('/', (req, res) => res.json({ ok: true }));
     this.app.post('/login', loginMiddleware, loginController.create.bind(loginController));
     this.app.get('/login/validate', auth, loginController.validateToken);
+    this.app.get('/teams', teamController.getAllTeams.bind(teamController));
     this.app.use(error);
   }
 
