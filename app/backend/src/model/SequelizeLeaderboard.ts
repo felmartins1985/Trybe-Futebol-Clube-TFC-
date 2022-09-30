@@ -4,10 +4,19 @@ import Match from '../database/models/MatchModel';
 abstract class SequelizeLeaderboard {
   protected _model = Team;
 
-  async getAll() {
+  async getAllHome() {
     const team = await this._model.findAll({
       include: [
         { model: Match, as: 'matchesHome', where: { inProgress: 0 } },
+      ],
+    });
+    return team;
+  }
+
+  async getAllAway() {
+    const team = await this._model.findAll({
+      include: [
+        { model: Match, as: 'matchesAway', where: { inProgress: 0 } },
       ],
     });
     return team;

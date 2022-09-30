@@ -28,7 +28,8 @@ class App {
     this.app.post('/matches', auth, matchController.postMatch.bind(matchController));
     this.app.patch('/matches/:id', matchController.patchMatchGoals.bind(matchController));
     this.app.patch('/matches/:id/finish', matchController.patchMatch.bind(matchController));
-    this.app.get('/leaderboard/home', leaderController.getAll.bind(leaderController));
+    this.app.get('/leaderboard/home', leaderController.getAllHome.bind(leaderController));
+    this.app.get('/leaderboard/away', leaderController.getAllAway.bind(leaderController));
     this.app.use(error);
   }
 

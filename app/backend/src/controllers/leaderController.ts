@@ -9,8 +9,16 @@ export default class LeaderController {
     this.service = new LeaderService();
   }
 
-  public async getAll(req: Request, res: Response) {
-    const team = await this.service.getAll();
+  public async getAllHome(req: Request, res: Response) {
+    const team = await this.service.getAllHome();
+    if (team.message) {
+      return res.status(team.code).json({ message: team.message });
+    }
+    return res.status(team.code).json(team.data);
+  }
+
+  public async getAllAway(req: Request, res: Response) {
+    const team = await this.service.getAllAway();
     if (team.message) {
       return res.status(team.code).json({ message: team.message });
     }
