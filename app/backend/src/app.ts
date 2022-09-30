@@ -3,6 +3,7 @@ import error from './middlewares/error';
 import LoginController from './controllers/loginController';
 import TeamController from './controllers/teamController';
 import MatchController from './controllers/matchController';
+import LeaderController from './controllers/leaderController';
 import loginMiddleware from './middlewares/loginMiddleware';
 import auth from './middlewares/auth';
 
@@ -14,6 +15,7 @@ class App {
     const loginController = new LoginController();
     const teamController = new TeamController();
     const matchController = new MatchController();
+    const leaderController = new LeaderController();
     this.config();
 
     // Não remover essa rota
@@ -26,6 +28,7 @@ class App {
     this.app.post('/matches', auth, matchController.postMatch.bind(matchController));
     this.app.patch('/matches/:id', matchController.patchMatchGoals.bind(matchController));
     this.app.patch('/matches/:id/finish', matchController.patchMatch.bind(matchController));
+    this.app.get('/leaderboard/home', leaderController.getAll.bind(leaderController));
     this.app.use(error);
   }
 
