@@ -20,6 +20,9 @@ export default class TeamController {
   public async findTeam(req: Request, res: Response) {
     const { id } = req.params;
     const team = await this.service.findTeam(Number(id));
+    if (team.message) {
+      return res.status(team.code).json({ message: team.message });
+    }
     return res.status(team.code).json(team.data);
   }
 }

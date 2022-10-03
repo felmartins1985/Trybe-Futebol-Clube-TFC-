@@ -19,7 +19,7 @@ describe('Rota /team', () => {
    */
 
   // let chaiHttpResponse: Response;
-  describe('Rota Get /team', () => {
+  describe('Rota Get /team sucesso', () => {
     before(async () => {
       sinon
         .stub(TeamModel.prototype, "getAll")
@@ -53,7 +53,7 @@ describe('Rota /team', () => {
       expect(result.body).to.be.an('array');
     });  
   })
-  describe('Rota Get /team', () => {
+  describe('Rota Get /team falha', () => {
     before(async () => {
       sinon
         .stub(TeamModel.prototype, "getAll")
@@ -72,5 +72,42 @@ describe('Rota /team', () => {
       expect(result.body).to.be.an('object');
       expect(result.body.message).to.be.equal('No teams found')
     });  
+  });
+  describe('Rota Get /teams:id sucesso', () => {
+    before(async () => {
+      sinon
+        .stub(TeamModel.prototype, "findTeam")
+        .resolves({
+          id:1,
+          teamName: 'Bahia',
+        });
+    });
+  
+    after(() => {
+      (TeamModel.prototype.findTeam as sinon.SinonStub).restore();
+    });
+    it('Retorna o time com sucesso', async () => {
+      const result = await chai.request(app).get('/teams/1')
+      expect(result.status).to.be.equal(200);  
+      expect(result.body).to.be.an('object');
+      expect(result.body.teamName).to.be.equal('Bahia')
+    });
+  });
+  describe('Rota Get /teams:id falha', () => {
+    before(async () => {
+      sinon
+        .stub(TeamModel.prototype, "findTeam")
+        .resolves(null);
+    });
+  
+    after(() => {
+      (TeamModel.prototype.findTeam as sinon.SinonStub).restore();
+    });
+    it('Retorna mensagem de erro', async () => {
+      const result = await chai.request(app).get('/teams/1')
+      expect(result.status).to.be.equal(404);
+      console.log(result.body)
+      expect(result.body.message).to.be.equal('No team found')
+    });
   })
 });
