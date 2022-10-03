@@ -9,28 +9,33 @@ import auth from './middlewares/auth';
 
 class App {
   public app: express.Express;
-
+  public loginController = new LoginController();
+  public teamController = new TeamController();
+  public matchController = new MatchController();
+  public leaderController = new LeaderController();
   constructor() {
     this.app = express();
-    const loginController = new LoginController();
-    const teamController = new TeamController();
-    const matchController = new MatchController();
-    const leaderController = new LeaderController();
-    this.config();
 
-    // Não remover essa rota
-    this.app.get('/', (req, res) => res.json({ ok: true }));
-    this.app.post('/login', loginMiddleware, loginController.create.bind(loginController));
-    this.app.get('/login/validate', auth, loginController.validateToken);
-    this.app.get('/teams', teamController.getAllTeams.bind(teamController));
-    this.app.get('/teams/:id', teamController.findTeam.bind(teamController));
-    this.app.get('/matches', matchController.getAllMatches.bind(matchController));
-    this.app.post('/matches', auth, matchController.postMatch.bind(matchController));
-    this.app.patch('/matches/:id', matchController.patchMatchGoals.bind(matchController));
-    this.app.patch('/matches/:id/finish', matchController.patchMatch.bind(matchController));
-    this.app.get('/leaderboard/home', leaderController.getAllHome.bind(leaderController));
-    this.app.get('/leaderboard/away', leaderController.getAllAway.bind(leaderController));
+    this.config();
+    this.routes();
     this.app.use(error);
+  }
+
+  routes():void {
+    this.app.get('/', (req, res) => res.json({ ok: true }));
+    this.app.post('/login', loginMiddleware, this.loginController.create
+      .bind(this.loginController));
+    this.app.get('/login/validate', auth, this.loginController.validateToken);
+    this.app.get('/teams', this.teamController.getAllTeams.bind(this.teamController));
+    this.app.get('/teams/:id', this.teamController.findTeam.bind(this.teamController));
+    this.app.get('/matches', this.matchController.getAllMatches.bind(this.matchController));
+    this.app.post('/matches', auth, this.matchController.postMatch.bind(this.matchController));
+    this.app.patch('/matches/:id', this.matchController.patchMatchGoals.bind(this.matchController));
+    this.app.patch('/matches/:id/finish', this.matchController.patchMatch
+      .bind(this.matchController));
+    this.app.get('/leaderboard/home', this.leaderController.getAllHome.bind(this.leaderController));
+    this.app.get('/leaderboard/away', this.leaderController.getAllAway.bind(this.leaderController));
+    this.app.get('/leaderboard', this.leaderController.getAll.bind(this.leaderController));
   }
 
   private config():void {

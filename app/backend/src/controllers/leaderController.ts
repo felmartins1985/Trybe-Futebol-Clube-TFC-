@@ -24,4 +24,12 @@ export default class LeaderController {
     }
     return res.status(team.code).json(team.data);
   }
+
+  public async getAll(req: Request, res: Response) {
+    const team = await this.service.getAll();
+    if (team.message) {
+      return res.status(team.code).json({ message: team.message });
+    }
+    return res.status(team.code).json(team.data);
+  }
 }

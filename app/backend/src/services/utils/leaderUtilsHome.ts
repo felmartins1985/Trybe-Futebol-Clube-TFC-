@@ -27,7 +27,7 @@ const calculateEfficacy = (points: number, matches:number) => {
   return efficacy;
 };
 
-const calculateLeaderboard = ({ teamName, matchesHome }:any) => {
+const calculateLeaderboardH = ({ teamName, matchesHome }:any) => {
   const { goalsDone, goalsTaken, goalsDifference } = calculateGoals(matchesHome);
   const { win, defeat, draws, total } = calculateMatch(matchesHome);
   const efficacy = calculateEfficacy(total, matchesHome.length);
@@ -45,7 +45,7 @@ const calculateLeaderboard = ({ teamName, matchesHome }:any) => {
   };
 };
 
-const sortLeaderboard = (leaderboard: any) => {
+const sortLeaderboardH = (leaderboard: any) => {
   const sortedLeaderboard = leaderboard.sort((a: any, b: any) => {
     if (a.totalPoints < b.totalPoints) return 1;
     if (a.totalPoints > b.totalPoints) return -1;
@@ -61,4 +61,4 @@ const sortLeaderboard = (leaderboard: any) => {
   });
   return sortedLeaderboard;
 };
-export { calculateLeaderboard, sortLeaderboard };
+export { calculateLeaderboardH, sortLeaderboardH };
