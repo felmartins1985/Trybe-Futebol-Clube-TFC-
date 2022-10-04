@@ -6,7 +6,7 @@ import TeamModel from '../database/models/TeamModel';
 abstract class SequelizeModelMatch {
   protected _model = MatchModel;
 
-  public async getAll(): Promise<MatchModel[] | null > {
+  public async getAll(): Promise<IMatch[] | null > {
     return this._model.findAll({ include: [
       { model: TeamModel, as: 'teamHome' },
 

@@ -14,9 +14,6 @@ chai.use(chaiHttp);
 const { expect } = chai;
 
 describe('Rota /team', () => {
-  /**
-   * Exemplo do uso de stubs com tipos
-   */
 
   // let chaiHttpResponse: Response;
   describe('Rota Get /team sucesso', () => {
@@ -39,13 +36,6 @@ describe('Rota /team', () => {
       (TeamModel.prototype.getAll as sinon.SinonStub).restore();
     });
   
-    // it('...', async () => {
-    //   chaiHttpResponse = await chai
-    //      .request(app)
-    //      ...
-  
-    //   expect(...)
-    // });
   
     it('Retorna os times com sucesso', async () => {
       const result = await chai.request(app).get('/teams')

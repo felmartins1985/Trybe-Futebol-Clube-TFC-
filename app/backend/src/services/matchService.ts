@@ -30,10 +30,10 @@ export default class TeamService {
   }
 
   public async patchMatch(id:number) {
-    const body = await this.matchesModel.patchMatch(id);
-    if (!body) {
-      return { code: 404, message: 'No match found' };
-    }
+    await this.matchesModel.patchMatch(id);
+    // if (!body) {
+    //   return { code: 404, message: 'No match found' };
+    // }
     return { code: 200, data: 'Finished' };
   }
 

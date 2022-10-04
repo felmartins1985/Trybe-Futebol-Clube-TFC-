@@ -28,9 +28,9 @@ export default class MatchController {
   public async patchMatch(req: Request, res: Response) {
     const { id } = req.params;
     const result = await this.service.patchMatch(Number(id));
-    if (result.message) {
-      return res.status(result.code).json({ message: result.message });
-    }
+    // if (result.message) {
+    //   return res.status(result.code).json({ message: result.message });
+    // }
     return res.status(result.code).json({ message: result.data });
   }
 
